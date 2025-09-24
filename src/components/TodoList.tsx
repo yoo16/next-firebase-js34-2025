@@ -29,32 +29,32 @@ export default function TodoList() {
     const [todos, setTodos] = useState<Todo[]>([]);
 
     // 初回読み込み時にデモ用データをセット
-    useEffect(() => {
-        setTodos([
-            { id: '1', text: 'デモ用のタスク1', done: false, uid: 'uid', createdAt: new Date() },
-            { id: '2', text: 'デモ用のタスク2', done: true, uid: 'uid', createdAt: new Date() },
-        ]);
-    }, []);
-
     // useEffect(() => {
-    //     if (!user) return;
+    //     setTodos([
+    //         { id: '1', text: 'デモ用のタスク1', done: false, uid: 'uid', createdAt: new Date() },
+    //         { id: '2', text: 'デモ用のタスク2', done: true, uid: 'uid', createdAt: new Date() },
+    //     ]);
+    // }, []);
 
-    //     const q = query(
-    //         collection(db(), 'todos'),
-    //         where('uid', '==', user.uid),
-    //         orderBy('createdAt', 'desc')
-    //     );
+    useEffect(() => {
+        if (!user) return;
 
-    //     const unsub = onSnapshot(q, (snap) => {
-    //         const list: Todo[] = snap.docs.map((d) => ({
-    //             id: d.id,
-    //             ...(d.data() as TodoData),
-    //         }));
-    //         setTodos(list);
-    //     });
+        const q = query(
+            collection(db(), 'todos'),
+            where('uid', '==', user.uid),
+            orderBy('createdAt', 'desc')
+        );
 
-    //     return () => unsub();
-    // }, [user]);
+        const unsub = onSnapshot(q, (snap) => {
+            const list: Todo[] = snap.docs.map((d) => ({
+                id: d.id,
+                ...(d.data() as TodoData),
+            }));
+            setTodos(list);
+        });
+
+        return () => unsub();
+    }, [user]);
 
     const toggle = async (t: Todo) => {
         // await updateDoc(doc(db(), 'todos', t.id), { done: !t.done });

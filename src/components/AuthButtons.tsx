@@ -24,20 +24,20 @@ export default function AuthButtons() {
 
   const loginEmail = async () => {
     setMsg('Email Login');
-    // try {
-    //   await signInWithEmailAndPassword(auth(), email, pw);
-    // } catch (e: any) {
-    //   setMsg(e.message);
-    // }
+    try {
+      await signInWithEmailAndPassword(auth(), email, pw);
+    } catch (e: any) {
+      setMsg(e.message);
+    }
   };
 
   const registerEmail = async () => {
     setMsg('Email Register');
-    // try {
-    //   await createUserWithEmailAndPassword(auth(), email, pw);
-    // } catch (e: any) {
-    //   setMsg(e.message);
-    // }
+    try {
+      await createUserWithEmailAndPassword(auth(), email, pw);
+    } catch (e: any) {
+      setMsg(e.message);
+    }
   };
 
   const logout = async () => {

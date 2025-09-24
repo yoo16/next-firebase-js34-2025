@@ -70,11 +70,19 @@ export default function TodoList() {
         // done を反転（true → false / false → true）させて保存
         // updateDoc(ドキュメント参照, 更新データ)
         // doc(データベース, コレクション名, ドキュメントID)
+
+        // SQLでやるなら
+        // UPDATE todos SET done = true/false WHERE id = ?;
         await updateDoc(doc(db(), 'todos', t.id), { done: !t.done });
     };
 
     const remove = async (t: Todo) => {
-        // await deleteDoc(doc(db(), 'todos', t.id));
+        // deleteDoc(ドキュメント参照)
+        // doc(データベース, コレクション名, ドキュメントID)
+
+        // SQLでやるなら
+        // DELETE FROM todos WHERE id = ?;
+        await deleteDoc(doc(db(), 'todos', t.id));
     };
 
     if (!user) {

@@ -66,7 +66,11 @@ export default function TodoList() {
     }, [user]);
 
     const toggle = async (t: Todo) => {
-        // await updateDoc(doc(db(), 'todos', t.id), { done: !t.done });
+        // id で指定したドキュメントの done を反転させる
+        // done を反転（true → false / false → true）させて保存
+        // updateDoc(ドキュメント参照, 更新データ)
+        // doc(データベース, コレクション名, ドキュメントID)
+        await updateDoc(doc(db(), 'todos', t.id), { done: !t.done });
     };
 
     const remove = async (t: Todo) => {

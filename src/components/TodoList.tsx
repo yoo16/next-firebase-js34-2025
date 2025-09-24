@@ -39,17 +39,26 @@ export default function TodoList() {
     useEffect(() => {
         if (!user) return;
 
+        // TODOをuidで絞り込み、作成日の降順で並び替え
+
+        // SQLでやるなら
+        // SELECT * FROM todos WHERE uid = ? ORDER BY createdAt DESC;
+
+        // NoSQL（Firestore）でやるなら
+        // query(コレクション, 条件, 並び順)
         const q = query(
             collection(db(), 'todos'),
             where('uid', '==', user.uid),
             orderBy('createdAt', 'desc')
         );
 
+        // クエリーを実行して、リアルタイムでデータを受け取る
         const unsub = onSnapshot(q, (snap) => {
             const list: Todo[] = snap.docs.map((d) => ({
                 id: d.id,
                 ...(d.data() as TodoData),
             }));
+            // とってきたデータをセット
             setTodos(list);
         });
 

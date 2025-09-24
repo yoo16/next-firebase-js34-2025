@@ -10,13 +10,19 @@ export default function TodoForm() {
 
     const submit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // if (!user || !text.trim()) return;
-        // await addDoc(collection(db(), 'todos'), {
-        //     uid: user.uid,
-        //     text: text.trim(),
-        //     done: false,
-        //     createdAt: serverTimestamp(),
-        // });
+        if (!user || !text.trim()) return;
+        // addDoc(コレクション, ドキュメントデータ)
+        await addDoc(collection(db(), 'todos'), {
+            uid: user.uid,
+            text: text.trim(),
+            done: false,
+            createdAt: serverTimestamp(),
+        });
+        // もし SQLデータベースだったら
+        // INSERT INTO todos (uid, text, done, createdAt) VALUES (...);
+        // SQLデータベースに接続
+        // SQLを実行
+        // 接続を閉じる
         setText('');
     };
 

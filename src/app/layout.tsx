@@ -15,6 +15,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <header className="flex items-center justify-between py-4">
           <h1 className="text-xl font-semibold">Next.js + Firebase</h1>
           <Link className="text-sm underline" href="/">Home</Link>
+          <Link className="text-sm underline" href="/user">User</Link>
+          <Link className="text-sm underline" href="/app">Todo</Link>
         </header>
         <main>{children}</main>
       </body>

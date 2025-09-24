@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 export default function UserProfile() {
+    // Firebase Auth のユーザー情報
     const { user, loading: authLoading } = useAuth();
     const router = useRouter();
 

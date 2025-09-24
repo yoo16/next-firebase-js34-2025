@@ -1,5 +1,6 @@
 'use client';
 import { auth } from '@/lib/firebase.client';
+import { saveAuthUser } from '@/lib/saveAuthUser';
 import { GoogleAuthProvider, signInWithPopup, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 
@@ -11,7 +12,11 @@ export default function AuthButtons() {
   const loginGoogle = async () => {
     setMsg('Google Login');
     try {
-      await signInWithPopup(auth(), new GoogleAuthProvider());
+      // Googleでログインで結果を受け取る
+      const result = await signInWithPopup(auth(), new GoogleAuthProvider());
+      // Firestoreにユーザー情報を保存
+      await saveAuthUser(result.user);
+
     } catch (e: any) {
       setMsg(e.message);
     }
